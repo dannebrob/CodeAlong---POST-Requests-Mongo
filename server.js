@@ -6,6 +6,24 @@ const mongoUrl = process.env.MONGO_URL || 'mongodb://127.0.0.1//post-codealong';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
+// Defines the model for the database
+const task = mongoose.model('Task', {
+  text: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 140
+  },
+  complete: {
+    type: Boolean,
+    default: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start
